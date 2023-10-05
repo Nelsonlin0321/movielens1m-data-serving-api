@@ -1,0 +1,7 @@
+{
+  "apigateway_invoke_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://jh9d4gng3e.execute-api.ap-southeast-1.amazonaws.com/prod"
+  }
+}

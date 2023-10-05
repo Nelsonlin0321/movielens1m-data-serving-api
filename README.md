@@ -58,3 +58,22 @@ image_name=movielens1m-data-serving-lambda
 repo_name=${image_name}
 aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
 ```
+
+
+## Terraform Infra Deployment
+
+```sh
+terraform init
+terraform fmt
+terraform apply
+```
+
+```sh
+terraform output -json > ./outputs.json
+```
+
+```sh
+curl -X 'GET' \
+  'https://jh9d4gng3e.execute-api.ap-southeast-1.amazonaws.com/prod/api/v1/movies/?genre=Animation&page_size=12' \
+  -H 'accept: application/json'
+```
