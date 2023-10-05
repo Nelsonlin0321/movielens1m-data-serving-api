@@ -1,6 +1,6 @@
 # pylint: disable=duplicate-code
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException
 
 from ...dynamodb_engine import Movie
 from ...utils import get_version, logger
@@ -19,10 +19,10 @@ movie_table = Movie(
 
 
 @router.get("/")
-async def get_celebrity_series_list(genre: str, request: Request):
+async def get_movie_by_genre(genre: str = None, page_size: int = 12, ):
     # pylint:disable=unused-argument,broad-exception-caught
     try:
-        response = movie_table.get_movies(genre=genre)
+        response = movie_table.get_movies(genre=genre, page_size=page_size)
     except Exception as exception:
         logger.error(exception)
         return HTTPException(status_code=500, detail=str(exception))

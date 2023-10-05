@@ -161,3 +161,4 @@ cython_debug/
 notebooks/movielens.zip
 ml-1m
 infra/.terraform
+docker.env

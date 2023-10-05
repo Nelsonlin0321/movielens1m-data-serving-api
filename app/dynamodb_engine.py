@@ -1,6 +1,5 @@
 import logging
-from decimal import Decimal
-from typing import Dict, List
+from typing import List, Dict
 
 import boto3
 from boto3.dynamodb.conditions import Key
@@ -11,16 +10,6 @@ logger = logging.getLogger(__name__)
 dynamodb = boto3.resource("dynamodb")
 
 
-def remove_decimals(item: Dict) -> Dict:
-    for key, value in item.items():
-        if isinstance(value, Decimal):
-            if value % 1 == 0:
-                item[key] = int(value)
-            else:
-                item[key] = round(float(value), 4)
-    return item
-
-
 class Movie:
     def __init__(self, table_name: str = "movielens_movie",
                  global_secondary_index: str = "rank_index") -> None:
@@ -28,18 +17,19 @@ class Movie:
         self.table = dynamodb.Table(table_name)
         self.global_secondary_index = global_secondary_index
 
-    def get_movies(self, genre: str) -> List:
+    def get_movies(self, genre: str, page_size=12) -> List[Dict]:
         # pylint:disable=no-else-raise,line-too-long
         try:
-
-            if genre != 'all':
+            if genre:
                 response = self.table.query(
-                    KeyConditionExpression=Key("genre").eq(genre)
+                    KeyConditionExpression=Key("genre").eq(genre),
+                    Limit=page_size
                 )
             else:
                 response = self.table.query(
                     IndexName=self.global_secondary_index,
-                    KeyConditionExpression=Key("rank").eq(1)
+                    KeyConditionExpression=Key("rank").eq(1),
+                    Limit=page_size
                 )
 
         except ClientError as err:
@@ -55,6 +45,4 @@ class Movie:
             raise
         else:
             items = response.get("Items", [])
-            if items:
-                items = [remove_decimals(item) for item in items]
             return items
