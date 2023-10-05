@@ -50,3 +50,11 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 }'
 ```
 
+## Push To ECR
+```sh
+account_id=932682266260
+region=ap-southeast-1
+image_name=movielens1m-data-serving-lambda
+repo_name=${image_name}
+aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
+```
