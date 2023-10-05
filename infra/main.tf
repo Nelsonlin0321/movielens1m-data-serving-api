@@ -17,9 +17,9 @@ resource "aws_dynamodb_table" "movie_genre_table" {
   name           = "movielens_movie"
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
-  write_capacity = 5
-  hash_key       = "movie_id"
-  range_key      = "genre"
+  write_capacity = 10
+  hash_key       = "genre"
+  range_key      = "movie_id"
 
   attribute {
     name = "movie_id"
@@ -29,6 +29,20 @@ resource "aws_dynamodb_table" "movie_genre_table" {
   attribute {
     name = "genre"
     type = "S"
+  }
+
+  attribute {
+    name = "rank"
+    type = "N"
+  }
+
+  global_secondary_index {
+    name               = "rank_index"
+    hash_key           = "rank"
+    range_key          = "movie_id"
+    write_capacity     = 10
+    read_capacity      = 5
+    projection_type    = "ALL"
   }
 
 }
