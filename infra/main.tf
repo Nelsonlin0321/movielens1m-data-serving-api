@@ -113,7 +113,7 @@ data "aws_iam_policy_document" "lambda_dynamodb_access" {
 }
 
 resource "aws_iam_policy" "lambda_dynamodb_access" {
-  name        = "lambda_dynamodb_access"
+  name        = "movielens_lambda_role"
   path        = "/"
   description = "IAM policy of dynamodb access for lambda "
   policy      = data.aws_iam_policy_document.lambda_dynamodb_access.json
@@ -133,7 +133,7 @@ resource "aws_lambda_function" "movielens1m-data-serving-lambda" {
   timeout       = 5 # seconds
   image_uri     = "${var.account_id}.dkr.ecr.${var.region}.amazonaws.com/${var.repository_name}:latest"
   package_type  = "Image"
-  architectures = ["arm64"]
+  architectures = ["x86_64"]
   depends_on = [
     aws_cloudwatch_log_group.lambda_log_group,
     aws_iam_role_policy_attachment.lambda_logs_policy_attachment,
