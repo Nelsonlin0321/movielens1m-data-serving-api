@@ -70,4 +70,4 @@ jobs:
         FUNC_NAME: ${{ vars.FUNC_NAME }}
 
     - name: Lambda Integration  Test
-      run: pytest tests/test_local_api.py
+      run: pytest tests/test_cloud_api.py
