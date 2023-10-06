@@ -44,5 +44,9 @@ class Movie:
             )
             raise
         else:
-            items = response.get("Items", [])
-            return items
+            response_dict = {}
+            response_dict['results'] = response.get("Items", [])
+            response_dict['count'] = response.get("Count", 0)
+            response_dict['last_evaluated_key'] = response.get(
+                "LastEvaluatedKey", {})
+            return response_dict
