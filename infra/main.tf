@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "lambda_logging" {
       "logs:PutLogEvents",
     ]
 
-    resources = ["arn:aws:logs:*:*:*"]
+    resources = [aws_cloudwatch_log_group.lambda_log_group.arn]
   }
 }
 
@@ -108,7 +108,8 @@ data "aws_iam_policy_document" "lambda_dynamodb_access" {
       "dynamodb:Query",
     ]
 
-    resources = [aws_dynamodb_table.movie_genre_table.arn]
+    resources = ["${aws_dynamodb_table.movie_genre_table.arn}/*",
+    aws_dynamodb_table.movie_genre_table.arn]
   }
 }
 
