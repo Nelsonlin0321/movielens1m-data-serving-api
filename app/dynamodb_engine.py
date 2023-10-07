@@ -1,5 +1,5 @@
 import logging
-from typing import List, Dict
+from typing import Dict, List
 
 import boto3
 from boto3.dynamodb.conditions import Key
