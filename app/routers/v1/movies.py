@@ -19,10 +19,13 @@ movie_table = Movie(
 
 
 @router.get("/")
-async def get_movie_by_genre(genre: str = None, page_size: int = 12, ):
-    # pylint:disable=unused-argument,broad-exception-caught
+async def get_movie_by_genre(genre: str = None,
+                             page_size: int = 12,
+                             order_by: str = "release_year"):
+    # pylint:disable=unused-argument,broad-exception-caught,unexpected-keyword-arg
     try:
-        response = movie_table.get_movies(genre=genre, page_size=page_size)
+        response = movie_table.get_movies(
+            genre=genre, page_size=page_size, order_by=order_by)
     except Exception as exception:
         logger.error(exception)
         return HTTPException(status_code=500, detail=str(exception))
