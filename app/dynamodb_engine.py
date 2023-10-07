@@ -11,25 +11,26 @@ dynamodb = boto3.resource("dynamodb")
 
 
 class Movie:
-    def __init__(self, table_name: str = "movielens_movie",
-                 global_secondary_index: str = "rank_index") -> None:
+    def __init__(self, table_name: str = "movielens_movie") -> None:
         self.table_name = table_name
         self.table = dynamodb.Table(table_name)
-        self.global_secondary_index = global_secondary_index
 
     def get_movies(self, genre: str, page_size=12) -> List[Dict]:
         # pylint:disable=no-else-raise,line-too-long
         try:
             if genre:
                 response = self.table.query(
+                    IndexName="genre-release-year-index",
                     KeyConditionExpression=Key("genre").eq(genre),
-                    Limit=page_size
+                    Limit=page_size,
+                    ScanIndexForward=False
                 )
             else:
                 response = self.table.query(
-                    IndexName=self.global_secondary_index,
+                    IndexName="rank-release-year-index",
                     KeyConditionExpression=Key("rank").eq(1),
-                    Limit=page_size
+                    Limit=page_size,
+                    ScanIndexForward=False
                 )
 
         except ClientError as err:
