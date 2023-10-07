@@ -15,9 +15,28 @@ class Movie:
         self.table_name = table_name
         self.table = dynamodb.Table(table_name)
 
-    def get_movies(self, genre: str,
+    def get_movies(self,
+                   genre: str,
                    page_size: int = 12,
-                   order_by: str = "release_year") -> List[Dict]:
+                   order_by: str = "release_year",
+                   movie_id: int = None,
+                   ) -> List[Dict]:
+
+        if movie_id:
+            index_name = "movie-id-rank-index"
+            response = self.table.query(
+                IndexName=index_name,
+                KeyConditionExpression=Key("movie_id").eq(1),
+                Limit=1
+            )
+
+            item = response['Items']
+
+            if item:
+                return item[0]
+            else:
+                return {}
+
         # pylint:disable=no-else-raise,line-too-long
         if not order_by:
             order_by = "release_year"

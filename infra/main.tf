@@ -16,8 +16,8 @@ provider "aws" {
 resource "aws_dynamodb_table" "movie_genre_table" {
   name           = "movielens_movie"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 10
+  write_capacity = 10
   hash_key       = "genre"
   range_key      = "movie_id"
 
@@ -51,7 +51,7 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     hash_key           = "rank"
     range_key          = "release_year"
     write_capacity     = 1
-    read_capacity      = 10
+    read_capacity      = 1
     projection_type    = "ALL"
   }
 
@@ -60,7 +60,7 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     hash_key           = "genre"
     range_key          = "release_year"
     write_capacity     = 1
-    read_capacity      = 10
+    read_capacity      = 1
     projection_type    = "ALL"
   }
 
@@ -70,7 +70,7 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     hash_key           = "rank"
     range_key          = "rating"
     write_capacity     = 1
-    read_capacity      = 10
+    read_capacity      = 1
     projection_type    = "ALL"
   }
 
@@ -79,9 +79,19 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     hash_key           = "genre"
     range_key          = "rating"
     write_capacity     = 1
-    read_capacity      = 10
+    read_capacity      = 1
     projection_type    = "ALL"
   }
+
+  global_secondary_index {
+    name               = "movie-id-rank-index"
+    hash_key           = "movie_id"
+    range_key          = "rank"
+    write_capacity     = 1
+    read_capacity      = 1
+    projection_type    = "ALL"
+  }
+
 }
 
 
