@@ -41,12 +41,17 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     type = "N"
   }
 
+  attribute {
+    name = "rating"
+    type = "N"
+  }
+
   global_secondary_index {
     name               = "rank-release-year-index"
     hash_key           = "rank"
     range_key          = "release_year"
     write_capacity     = 1
-    read_capacity      = 1
+    read_capacity      = 10
     projection_type    = "ALL"
   }
 
@@ -55,10 +60,28 @@ resource "aws_dynamodb_table" "movie_genre_table" {
     hash_key           = "genre"
     range_key          = "release_year"
     write_capacity     = 1
-    read_capacity      = 1
+    read_capacity      = 10
     projection_type    = "ALL"
   }
 
+
+  global_secondary_index {
+    name               = "rank-rating-index"
+    hash_key           = "rank"
+    range_key          = "rating"
+    write_capacity     = 1
+    read_capacity      = 10
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "genre-rating-index"
+    hash_key           = "genre"
+    range_key          = "rating"
+    write_capacity     = 1
+    read_capacity      = 10
+    projection_type    = "ALL"
+  }
 }
 
 
