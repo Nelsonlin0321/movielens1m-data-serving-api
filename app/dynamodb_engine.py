@@ -19,6 +19,9 @@ class Movie:
                    page_size: int = 12,
                    order_by: str = "release_year") -> List[Dict]:
         # pylint:disable=no-else-raise,line-too-long
+        if not order_by:
+            order_by = "release_year"
+
         order_by = order_by.replace("_", "-")
 
         try:
