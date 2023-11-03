@@ -161,3 +161,5 @@ cython_debug/
 ml-1m
 infra/.terraform
 docker.env
+notebooks/movie_info.parquet
+notebooks/movielens.zip
