@@ -25,7 +25,7 @@ handler = Mangum(app)
 
 PREFIX = "/api"
 
-app.include_router(v1.movies.router, prefix=PREFIX)
+app.include_router(v1.endpoints.router, prefix=PREFIX)
 
 
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"

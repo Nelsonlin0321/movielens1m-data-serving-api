@@ -3,3 +3,4 @@ uvicorn
 boto3
 gunicorn
 mangum
+pymongo
