@@ -77,3 +77,10 @@ curl -X 'GET' \
   'https://jh9d4gng3e.execute-api.ap-southeast-1.amazonaws.com/prod/api/v1/movies/?genre=Animation&page_size=12' \
   -H 'accept: application/json'
 ```
+
+
+```sh
+curl -X 'GET' \
+  'https://jh9d4gng3e.execute-api.ap-southeast-1.amazonaws.com/prod/api/v1/movies/search?q=black&limit=30' \
+  -H 'accept: application/json'
+```
