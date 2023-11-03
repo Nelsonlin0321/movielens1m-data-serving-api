@@ -14,7 +14,7 @@ def test_search():
     limit = 30
     q = "black"
     response = requests.get(
-        f"{URL}/api/v1/movies/search?q={q}&limit={limit}", timeout=10).json()
+        f"{URL}/api/v1/movies/search?q={q}&limit={limit}", timeout=10)
 
     assert response.status_code == 200
 
