@@ -27,7 +27,12 @@ class MongoDB():
 
                         'query': query,
 
-                        'path': search_field
+                        'path': search_field,
+
+                        "fuzzy": {
+                            "maxEdits": 2,
+                            "maxExpansions": 50,
+                        }
 
                     }
 
