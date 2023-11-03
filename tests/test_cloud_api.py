@@ -9,4 +9,13 @@ def test_api():
         f"{URL}/api/v1/movies/?page_size={page_size}").json()
     assert len(response['results']) == page_size
 
+
+def test_search():
+    limit = 30
+    q = "black"
+    response = requests.get(
+        f"{URL}/api/v1/movies/search?q={q}&limit={limit}").json()
+
+    assert response.status_code == 200
+
 # sudo lsof -t -i tcp:5050 | sudo xargs kill

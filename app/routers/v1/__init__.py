@@ -1,1 +1,1 @@
-from . import movies
+from . import endpoints

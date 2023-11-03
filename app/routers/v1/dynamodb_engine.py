@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 dynamodb = boto3.resource("dynamodb")
 
 
-class Movie:
+class DynamoBD:
     def __init__(self, table_name: str = "movielens_movie") -> None:
         self.table_name = table_name
         self.table = dynamodb.Table(table_name)
@@ -26,7 +26,7 @@ class Movie:
             index_name = "movie-id-rank-index"
             response = self.table.query(
                 IndexName=index_name,
-                KeyConditionExpression=Key("movie_id").eq(1),
+                KeyConditionExpression=Key("movie_id").eq(movie_id),
                 Limit=1
             )
 
