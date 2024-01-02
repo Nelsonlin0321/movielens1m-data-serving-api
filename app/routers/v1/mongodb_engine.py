@@ -1,6 +1,6 @@
 import os
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Dict
 
 from pymongo import MongoClient
 
@@ -11,11 +11,11 @@ if not MONGODB_URL:
 
 @dataclass
 class SearchParameters:
-    search_text:  Optional[str] = None
-    genre: Optional[str] = None
-    skip: Optional[int] = None
+    search_text:  str
+    genre: str
+    skip: int
     order_by: str = 'release_year'
-    limit:  Optional[int] = 30
+    limit: int = 30
 
 
 class MongoDB():
@@ -24,7 +24,7 @@ class MongoDB():
         self.db_name = db_name
         self.collection_name = collection_name
 
-    def search(self, params: SearchParameters) -> List:
+    def search(self, params: SearchParameters) -> Dict:
         aggregate_pipeline = []
 
         if params.search_text:

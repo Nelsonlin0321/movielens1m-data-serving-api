@@ -16,7 +16,7 @@ mongodb = MongoDB(db_name="movielens1m", collection_name="movie")
 
 @router.get("/search")
 async def search_movie(q: str = None, genre: str = None,
-                       skip: int = None, limit: int = None,
+                       skip: int = None, limit: int = 30,
                        order_by="release_year"):
 
     params = SearchParameters(
